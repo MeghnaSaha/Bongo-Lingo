@@ -1,11 +1,16 @@
 package com.example.bongolingo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,40 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView numbers = findViewById(R.id.numbers);
-        numbers.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(intent);
-            }
-        });
+        ViewPager2 viewPager2 = findViewById(R.id.viewpager);
+        CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager(), getLifecycle());
+        viewPager2.setAdapter(adapter);
 
-        TextView family = findViewById(R.id.family);
-        family.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView colors = findViewById(R.id.colors);
-        colors.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ColorsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView phrases = findViewById(R.id.phrases);
-        phrases.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PhrasesActivity.class);
-                startActivity(intent);
-            }
-        });
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        new TabLayoutMediator(tabLayout, viewPager2,
+                (tab, position) -> tab.setText(adapter.getPageTitle(position))
+        ).attach();
     }
 }

@@ -1,20 +1,21 @@
 package com.example.bongolingo;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity {
+public class PhrasesFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
@@ -39,27 +40,31 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
+    public PhrasesFragment() {
+        // Required empty public constructor
+    }
 
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
+        audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("aek", "one", R.drawable.number_one, R.raw.number_one));
-        words.add(new Word("dui", "two", R.drawable.number_two, R.raw.number_two));
-        words.add(new Word("theen", "three", R.drawable.number_three, R.raw.number_three));
-        words.add(new Word("chaar", "four", R.drawable.number_four, R.raw.number_four));
-        words.add(new Word("paanch", "five", R.drawable.number_five, R.raw.number_five));
-        words.add(new Word("chhoye", "six", R.drawable.number_six, R.raw.number_six));
-        words.add(new Word("shath", "seven", R.drawable.number_seven, R.raw.number_seven));
-        words.add(new Word("atth", "eight", R.drawable.number_eight, R.raw.number_eight));
-        words.add(new Word("noy", "nine", R.drawable.number_nine, R.raw.number_nine));
-        words.add(new Word("daush", "ten", R.drawable.number_ten, R.raw.number_ten));
+        words.add(new Word("Kemon achish?", "How are you?"));
+        words.add(new Word("Bhalo achi.", "I am fine."));
+        words.add(new Word("Tomar naam ki?", "What's your name?"));
+        words.add(new Word("Amar naam ...", "My name is ..."));
+        words.add(new Word("Kothaye jaccho?", "Where are you going?"));
+        words.add(new Word("Hae, ami ashchhi?", "Yes, I am coming"));
+        words.add(new Word("Na, ami jachhi na?", "No, I am not going"));
+        words.add(new Word("Taratari koro!", "Hurry up!"));
+        words.add(new Word("Amar khide peyeche.", "I'm hungry."));
+        words.add(new Word("Ki kheyeccho?", "What did you eat?"));
+        words.add(new Word("Ami tomake bhalobashi", "I love you"));
 
-        WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_numbers);
-        ListView listView = findViewById(R.id.list);
+        WordAdapter itemsAdapter = new WordAdapter(getActivity(), words, R.color.category_phrases);
+        ListView listView = rootView.findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,7 +73,7 @@ public class NumbersActivity extends AppCompatActivity {
 
                 int result = audioManager.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    mediaPlayer = MediaPlayer.create(NumbersActivity.this, words.get(position).getAudioResourceId());
+                    mediaPlayer = MediaPlayer.create(getActivity(), words.get(position).getAudioResourceId());
                     mediaPlayer.start();
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
@@ -79,10 +84,11 @@ public class NumbersActivity extends AppCompatActivity {
                 }
             }
         });
+        return rootView;
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         releaseMediaPlayer();
     }
