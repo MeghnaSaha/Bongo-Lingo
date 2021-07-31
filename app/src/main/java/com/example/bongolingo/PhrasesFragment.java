@@ -51,17 +51,17 @@ public class PhrasesFragment extends Fragment {
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("Kemon achish?", "How are you?"));
-        words.add(new Word("Bhalo achi.", "I am fine."));
-        words.add(new Word("Tomar naam ki?", "What's your name?"));
-        words.add(new Word("Amar naam ...", "My name is ..."));
-        words.add(new Word("Kothaye jaccho?", "Where are you going?"));
-        words.add(new Word("Hae, ami ashchhi?", "Yes, I am coming"));
-        words.add(new Word("Na, ami jachhi na?", "No, I am not going"));
-        words.add(new Word("Taratari koro!", "Hurry up!"));
-        words.add(new Word("Amar khide peyeche.", "I'm hungry."));
-        words.add(new Word("Ki kheyeccho?", "What did you eat?"));
-        words.add(new Word("Ami tomake bhalobashi", "I love you"));
+        words.add(new Word("Kemon achho?", "How are you?", R.raw.phrases_howareyou));
+        words.add(new Word("Bhalo achhi.", "I am fine.", R.raw.phrases_iamfine));
+        words.add(new Word("Tomar naam ki?", "What's your name?", R.raw.phrases_whatsyourname));
+        words.add(new Word("Amar naam ...", "My name is ...", R.raw.phrases_mynameis));
+        words.add(new Word("Kothaye jaccho?", "Where are you going?", R.raw.phrases_whereareyougoing));
+        words.add(new Word("Hae, ami ashchhi", "Yes, I am coming", R.raw.phrases_yesimcoming));
+        words.add(new Word("Na, ami jachhi na", "No, I am not going", R.raw.phrases_noimnotgoing));
+        words.add(new Word("Taratari koro!", "Hurry up!", R.raw.phrases_hurryup));
+        words.add(new Word("Amar khide peyeche.", "I'm hungry.", R.raw.phrases_imhungry));
+        words.add(new Word("Ki kheyechho?", "What did you eat?", R.raw.phrases_whatdidyoueat));
+        words.add(new Word("Ami tomake bhalobashi", "I love you", R.raw.phrases_iloveyou));
 
         WordAdapter itemsAdapter = new WordAdapter(getActivity(), words, R.color.category_phrases);
         ListView listView = rootView.findViewById(R.id.list);

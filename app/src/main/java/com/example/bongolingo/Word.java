@@ -15,10 +15,10 @@ public class Word {
         mAudioResourceId = audioResourceId;
     }
 
-    public Word(String bengaliTranslation, String defaultTranslation, int imageResourceId){
+    public Word(String bengaliTranslation, String defaultTranslation, int audioResourceId){
         mBengaliTranslation = bengaliTranslation;
         mDefaultTranslation = defaultTranslation;
-        mImageResourceId = imageResourceId;
+        mAudioResourceId = audioResourceId;
     }
 
     public Word(String bengaliTranslation, String defaultTranslation){
